@@ -1,0 +1,25 @@
+<%- include('partials/header', { title: 'Post a Job' }) %>
+
+<div class="container my-5">
+  <h2>Post a New Job</h2>
+  <form method="POST" action="/jobs/post">
+    <div class="mb-3">
+      <input type="text" name="title" class="form-control" placeholder="Job Title" required>
+    </div>
+    <div class="mb-3">
+      <input type="text" name="company" class="form-control" placeholder="Company Name" required>
+    </div>
+    <div class="mb-3">
+      <input type="text" name="location" class="form-control" placeholder="Location" required>
+    </div>
+    <div class="mb-3">
+      <input type="text" name="salary" class="form-control" placeholder="Salary" required>
+    </div>
+    <div class="mb-3">
+      <textarea name="description" class="form-control" placeholder="Job Description" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-success">Post Job</button>
+  </form>
+</div>
+
+<%- include('partials/footer') %>

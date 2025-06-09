@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="/css/admin.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+      background-color: #f4f4f4;
+    }
+
+    .sidebar {
+      width: 220px;
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px;
+    }
+
+    .sidebar .profile {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .sidebar .profile img {
+      width: 70px;
+      border-radius: 50%;
+    }
+
+    .sidebar .profile p {
+      margin-top: 10px;
+    }
+
+    .sidebar .nav a {
+      display: block;
+      padding: 10px;
+      margin: 10px 0;
+      background: #34495e;
+      text-decoration: none;
+      color: white;
+      border-radius: 5px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .sidebar .nav a:hover {
+      background-color: #1abc9c;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 30px;
+      overflow-y: auto;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .card h2 {
+      margin-top: 0;
+    }
+
+    .stat-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    form {
+      display: inline;
+    }
+
+    button {
+      padding: 4px 8px;
+      background-color: #e74c3c;
+      border: none;
+      border-radius: 4px;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #c0392b;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <div class="profile">
+      <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="User Icon">
+      <p><strong>Admin</strong></p>
+<form action="/logout" method="POST">
+        <button class="btn btn-danger mt-3 w-100">Logout</button>
+      </form>
+        </div>
+    <div class="nav">
+      
+      <a href="/">Home</a>
+      <a onclick="showSection('stats')">Statistics</a>
+      <a onclick="showSection('jobs')">Job Posts</a>
+      <a onclick="showSection('users')">Users</a>
+      <a onclick="showSection('apps')">Applications</a>
+    </div>
+  </div>
+
+  <div class="main-content">
+    
+    <div id="stats" class="card">
+      <h2>📊 Statistics</h2>
+      <div class="stat-item"><span>Total Jobs:</span><span><%= totalJobs %></span></div>
+      <div class="stat-item"><span>Total Users:</span><span><%= totalUsers %></span></div>
+      <div class="stat-item"><span>Total Applications:</span><span><%= totalApplications %></span></div>
+    </div>
+
+    <div id="jobs" class="hidden">
+      <div class="card">
+        <h2>💼 Job Posts</h2>
+        <% jobs.forEach(job => { %>
+          <div class="stat-item">
+            <span><strong><%= job.title %></strong> at <%= job.company %></span>
+            <form method="POST" action="/admin/delete/job/<%= job._id %>">
+              <button type="submit">Delete</button>
+            </form>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+
+    <div id="users" class="hidden">
+      <div class="card">
+        <h2>👥 Users</h2>
+        <% users.forEach(user => { %>
+          <div class="stat-item">
+            <span><%= user.name %> (<%= user.role %>)</span>
+            <form method="POST" action="/admin/delete/user/<%= user._id %>">
+              <button type="submit">Delete</button>
+            </form>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+
+    <div id="apps" class="hidden">
+      <div class="card">
+        <h2>📄 Applications</h2>
+        <% allApplications.forEach(app => { %>
+          <div class="stat-item" style="flex-direction: column; align-items: flex-start;">
+            <p><strong>Name:</strong> <%= app.name %></p>
+            <p><strong>Email:</strong> <%= app.email %></p>
+<p><strong>Resume:</strong>
+  <% if (typeof app.resume === 'string') { %>
+    <a href="<%= app.resume %>" target="_blank"><%= app.resume.split('/').pop() %></a>
+  <% } else { %>
+    N/A
+  <% } %>
+</p>            <p><strong>Applied Job:</strong> <%= app.jobId?.title || 'N/A' %></p>
+          </div>
+          <hr />
+        <% }) %>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showSection(section) {
+      const sections = ['stats', 'jobs', 'users', 'apps'];
+      sections.forEach(id => {
+        document.getElementById(id).classList.add('hidden');
+      });
+      document.getElementById(section).classList.remove('hidden');
+    }
+  </script>
+
+</body>
+</html>

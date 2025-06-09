@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Successful page</title>
+  <meta http-equiv="refresh" content="2">
+  <script>
+    setTimeout(() => {
+      const role = "<%= role %>";
+      if (role === "admin") window.location.href = "/admin/dashboard";
+      if (role === "employer") window.location.href = "/employer/dashboard";
+      if (role === "job_seeker") window.location.href = "/jobs";
+    }, 2000);
+  </script>
+</head>
+<body style="font-family: Arial; text-align: center; margin-top: 20%;">
+  <h1>✅ Login Successful</h1>
+  <p>Redirecting to your dashboard...</p>
+</body>
+</html>

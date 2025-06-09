@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Job</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      max-width: 600px;
+      margin: auto;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      margin: 10px 0 5px;
+    }
+    input, textarea {
+      padding: 8px;
+      font-size: 16px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px;
+      background: #3498db;
+      border: none;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover {
+      background: #2980b9;
+    }
+  </style>
+</head>
+<body>
+  <h1>Edit Job</h1>
+  <form method="POST" action="/employer/edit-job/<%= job._id %>">
+    <label for="title">Job Title</label>
+    <input type="text" id="title" name="title" value="<%= job.title %>" required />
+
+    <label for="company">Company</label>
+    <input type="text" id="company" name="company" value="<%= job.company %>" required />
+
+    <label for="description">Description</label>
+    <textarea id="description" name="description" rows="5" required><%= job.description %></textarea>
+
+    <label for="location">Location</label>
+    <input type="text" id="location" name="location" value="<%= job.location %>" required />
+
+    <label for="salary">Salary</label>
+    <input type="text" id="salary" name="salary" value="<%= job.salary %>" />
+
+    <button type="submit">Update Job</button>
+  </form>
+</body>
+</html>

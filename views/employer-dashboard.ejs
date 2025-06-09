@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Employer Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      margin: 0;
+      height: 100vh;
+    }
+    .sidebar {
+      width: 220px;
+      background: #34495e;
+      color: white;
+      padding: 20px;
+    }
+    .sidebar h2 {
+      text-align: center;
+    }
+    .sidebar a {
+      display: block;
+      margin: 10px 0;
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      background: #2c3e50;
+      border-radius: 5px;
+    }
+    .sidebar a:hover {
+      background: #1abc9c;
+    }
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .job-card {
+      border: 1px solid #ddd;
+      margin-bottom: 15px;
+      padding: 15px;
+      border-radius: 6px;
+      box-shadow: 1px 1px 3px #ccc;
+    }
+    .job-card h3 {
+      margin-top: 0;
+    }
+    .actions form {
+      display: inline;
+    }
+    .actions button {
+      background: #e74c3c;
+      border: none;
+      color: white;
+      padding: 6px 10px;
+      margin-left: 5px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .actions button:hover {
+      background: #c0392b;
+    }
+    
+    .sidebar .profile {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .sidebar .profile img {
+      width: 70px;
+      border-radius: 50%;
+    }
+
+    .sidebar .profile p {
+      margin-top: 10px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <!-- <h2>Employer Panel</h2> -->
+    <div class="profile">
+      <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="User Icon">
+      <p><strong>Employer Dashboard</strong></p>
+    </div>
+    
+      <a href="/">Home</a>
+    <a href="/employer/dashboard">Dashboard</a>
+    <a href="/employer/add-job">Add New Job</a>
+    <a><form action="/logout" method="POST">
+        <button class="btn btn-danger mt-3 w-100">Logout</button>
+      </form></a>
+  </div>
+
+  <div class="main-content">
+    <h1>Your Job Posts</h1>
+    <% if (jobs.length === 0) { %>
+      <p>No jobs posted yet.</p>
+    <% } else { %>
+      <% jobs.forEach(job => { %>
+        <div class="job-card">
+          <h3><%= job.title %></h3>
+          <p><strong>Company:</strong> <%= job.company %></p>
+          <p><strong>Description:</strong> <%= job.description %></p>
+          <p><strong>Location:</strong> <%= job.location %></p>
+          <p><strong>Salary:</strong> <%= job.salary %></p>
+
+          <div class="actions">
+            <a href="/employer/edit-job/<%= job._id %>">Edit</a>
+            <form action="/employer/delete/job/<%= job._id %>" method="POST" onsubmit="return confirm('Are you sure to delete this job?');">
+              <button type="submit">Delete</button>
+            </form>
+          </div>
+        </div>
+      <% }) %>
+    <% } %>
+  </div>
+
+</body>
+</html>

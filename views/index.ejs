@@ -1,0 +1,162 @@
+<%- include('partials/header', { title: 'Home - Job Portal' }) %>
+
+<style>
+  body {
+    background: #f9fbff;
+  }
+
+  .hero-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 60px 0;
+    border-radius: 0 0 40px 40px;
+    animation: fadeIn 1s ease-in-out;
+  }
+
+  .hero-section h1 {
+    font-weight: 700;
+    font-size: 2.8rem;
+  }
+
+  .hero-section p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+  }
+
+  .hero-img {
+    border-radius: 10px;
+    max-width: 400px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn-hero {
+    background-color: #ffffff;
+    color: #764ba2;
+    font-weight: 600;
+    border-radius: 30px;
+    padding: 10px 25px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3);
+  }
+
+  .btn-hero:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.05);
+  }
+
+  .card {
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(118, 75, 162, 0.2);
+  }
+
+  .quote-box {
+    background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+    border-left: 5px solid #667eea;
+    padding: 25px 30px;
+    border-radius: 10px;
+    margin-top: 60px;
+    text-align: center;
+    animation: fadeInUp 1.2s ease-in-out;
+  }
+
+  .quote-box h4 {
+    font-weight: bold;
+    color: #333;
+  }
+
+  .quote-box p {
+    font-style: italic;
+    color: #555;
+    margin-top: 10px;
+  }
+
+  .btn-register {
+    background-color: #667eea;
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 30px;
+    font-weight: 600;
+    margin-top: 20px;
+    transition: background 0.3s ease;
+  }
+
+  .btn-register:hover {
+    background-color: #5a67d8;
+  }
+
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+</style>
+
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between">
+    <div class="text-white">
+      <h1>Find Your Dream Job</h1>
+      <p>Explore thousands of job listings. Get hired by top companies today!</p>
+      <a href="/jobs" class="btn btn-hero mt-3">Browse Jobs</a>
+    </div>
+    <img src="https://i.pinimg.com/736x/ac/86/f1/ac86f183eed2ac3eec808dcb5ea373d2.jpg" alt="Hero" class="img-fluid hero-img mt-4 mt-md-0">
+  </div>
+</section>
+
+<!-- Job Listings -->
+<div class="container mt-5">
+  <h2 class="mb-4 fw-bold">🚀 Latest Jobs</h2>
+  <div class="row">
+    <% const jobs = [
+      { title: 'Frontend Developer', company: 'Google', location: 'Bangalore', salary: '₹10-15 LPA' },
+      { title: 'Backend Developer', company: 'Amazon', location: 'Hyderabad', salary: '₹12-18 LPA' },
+      { title: 'Full Stack Engineer', company: 'Flipkart', location: 'Remote', salary: '₹8-12 LPA' },
+      { title: 'AI Engineer', company: 'Google', location: 'Bangalore', salary: '₹10-15 LPA' },
+      { title: 'Teacher', company: 'Amazon', location: 'Hyderabad', salary: '₹12-18 LPA' },
+      { title: 'Full Stack Developer', company: 'Flipkart', location: 'Remote', salary: '₹8-12 LPA' }
+    ]; %>
+
+    <% jobs.forEach(job => { %>
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h5 class="card-title text-primary"><%= job.title %></h5>
+            <p class="card-text"><strong>Company:</strong> <%= job.company %></p>
+            <p class="card-text"><strong>Location:</strong> <%= job.location %></p>
+            <p class="card-text"><strong>Salary:</strong> <%= job.salary %></p>
+            <a href="/jobs" class="btn btn-outline-primary btn-sm">Apply Now</a>
+          </div>
+        </div>
+      </div>
+    <% }); %>
+  </div>
+
+  <div class="text-center">
+    <a href="/jobs" class="btn btn-outline-primary btn-lg px-5 mt-3">View all jobs →</a>
+  </div>
+
+  <!-- Extra Motivational Section -->
+  <div class="quote-box">
+    <h4>“The best way to predict the future is to create it.”</h4>
+    <p>— Abraham Lincoln</p>
+    <a href="/register" class="btn btn-register">Create Your Profile Now</a>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

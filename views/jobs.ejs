@@ -1,0 +1,77 @@
+<%- include('partials/header', { title: 'Jobs - Job Portal' }) %>
+
+<style>
+  body {
+    background-color: #f8f9fa;
+  }
+
+  h2 {
+    color: #2c3e50;
+    font-weight: bold;
+  }
+
+  .job-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-left: 5px solid #0d6efd;
+    border-radius: 10px;
+  }
+
+  .job-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .job-card .btn {
+    transition: background-color 0.3s ease;
+  }
+
+  .job-card .btn:hover {
+    background-color: #0b5ed7;
+  }
+
+  .search-input {
+    border: 2px solid #0d6efd;
+    border-radius: 8px;
+    padding: 10px;
+    transition: box-shadow 0.2s;
+  }
+
+  .search-input:focus {
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    outline: none;
+  }
+</style>
+
+<div class="container my-5">
+  <h2 class="mb-4 text-center">✨ Available Jobs</h2>
+
+  <form method="get" action="/jobs" class="mb-5">
+    <input type="text" name="search" class="form-control search-input" placeholder="🔍 Search job by title..." value="<%= search %>">
+  </form>
+
+  <div class="row">
+    <% if (jobs.length === 0) { %>
+      <p class="text-center text-danger">No jobs found for "<%= search %>"</p>
+    <% } else { %>
+      <% jobs.forEach(job => { %>
+        <div class="col-md-6 mb-4">
+          <div class="card job-card shadow-sm p-3 bg-white">
+            <div class="card-body">
+              <h5 class="card-title text-primary"><%= job.title %></h5>
+              <p class="card-text"><strong>🏢 Company:</strong> <%= job.company %></p>
+              <p class="card-text"><strong>📍 Location:</strong> <%= job.location %></p>
+              <p class="card-text"><strong>💰 Salary:</strong> <%= job.salary %></p>
+              <% if (job._id) { %>
+                <a href="/jobs/apply/<%= job._id %>" class="btn btn-primary w-100 mt-2">Apply Now</a>
+              <% } else { %>
+                <button class="btn btn-secondary w-100 mt-2" disabled>Apply</button>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    <% } %>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

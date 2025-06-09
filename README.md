@@ -38,7 +38,7 @@ Users can browse jobs, search by title, apply with resume upload, and manage acc
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/job-portal.git
+   git clone https://github.com/jotkaur-6284/job-portal
    cd job-portal
 
 2. Install dependencies:
